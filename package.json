@@ -1,0 +1,16 @@
+{
+  "name": "non-digest-webpack-plugin",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/rossta/non-digest-webpack-plugin",
+  "author": "Ross Kaffenberger",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1",
+    "webpack": "3"
+  }
+}

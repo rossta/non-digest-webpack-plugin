@@ -4,3 +4,4 @@ test/webpack-out
 yarn.lock
 coverage
 yarn-error.log
+debug.js

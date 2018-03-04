@@ -1,2 +1,2 @@
 require('./b')
-console.log('a')
+console.log('a', Date.now())

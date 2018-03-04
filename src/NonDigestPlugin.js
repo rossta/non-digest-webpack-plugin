@@ -10,7 +10,7 @@ const CHUNKHASH_REGEX = /(-[a-z0-9]{20}\.{1}){1}/;
 NonDigestPlugin.prototype.apply = function(compiler) {
   compiler.plugin('emit', function(compilation, callback) {
     // Explore each compiled asset in build output:
-    compilation.assets.forEach(function(asset, filename) {
+    Object.entries(compilation.assets).forEach(function([filename, asset]) {
       if (!CHUNKHASH_REGEX.test(filename)) return;
 
       // only for filenames matching CHUNKHASH_REGEX

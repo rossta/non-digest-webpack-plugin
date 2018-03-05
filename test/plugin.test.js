@@ -5,7 +5,9 @@ const _ = require('lodash');
 const NonDigestPlugin = require('../index');
 
 const assert = require('chai').assert;
-const OUTPUT_DIR = path.join(__dirname, './webpack-out');
+const setupOutputDirHooks = require('./support/setupOutputDirHooks');
+const OUTPUT_DIR = path.join(__dirname, './.webpack-out');
+setupOutputDirHooks(OUTPUT_DIR);
 
 const webpackCompile = (config, callback) => {
   const defaultConfig = {
@@ -40,24 +42,15 @@ describe('NonDigestPlugin', function() {
       },
     };
     webpackCompile(config, function(stats) {
-      const files = ['app.js', `app-${stats.compilation.chunks[0].renderedHash}.js`];
-      const contents = files.map(filename =>
+      const files = [
+        'app.js',
+        `app-${stats.compilation.chunks[0].renderedHash}.js`,
+      ];
+      const contents = files.map((filename) =>
         fs.readFileSync(path.join(OUTPUT_DIR, filename)).toString(),
       );
       assert.equal(...contents);
       done();
     });
   });
-
-  afterEach(function() {
-    fs.readdir(OUTPUT_DIR, (err, files) => {
-      if (err) throw err;
-
-      for (const file of files) {
-        fs.unlink(path.join(OUTPUT_DIR, file), err => {
-          if (err) throw err;
-        });
-      }
-    });
-  })
 });

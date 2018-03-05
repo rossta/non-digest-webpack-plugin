@@ -8,9 +8,9 @@ function NonDigestPlugin() {}
 const CHUNKHASH_REGEX = /(-[a-z0-9]{20}\.{1}){1}/;
 
 NonDigestPlugin.prototype.apply = function(compiler) {
-  compiler.plugin('emit', function(compilation, callback) {
+  const emit = (compilation, callback) => {
     // Explore each compiled asset in build output:
-    Object.entries(compilation.assets).forEach(function([filename, asset]) {
+    Object.entries(compilation.assets).forEach(([filename, asset]) => {
       if (!CHUNKHASH_REGEX.test(filename)) return;
 
       // only for filenames matching CHUNKHASH_REGEX
@@ -19,7 +19,13 @@ NonDigestPlugin.prototype.apply = function(compiler) {
     });
 
     callback();
-  });
+  }
+
+  if (compiler.hooks) { // Webpack 4
+    compiler.hooks.emit.tapAsync('NonDigestPlugin', emit)
+  } else { // Webpack 3
+    compiler.plugin('emit', emit);
+  }
 };
 
 module.exports = NonDigestPlugin;

@@ -7,7 +7,7 @@ const NonDigestPlugin = require('../index');
 const assert = require('chai').assert;
 const OUTPUT_DIR = path.join(__dirname, './webpack-out');
 
-const webpackCompile = (config, done) => {
+const webpackCompile = (config, callback) => {
   const defaultConfig = {
     entry: {
       app: './fixtures/app.js',
@@ -24,7 +24,7 @@ const webpackCompile = (config, done) => {
   compiler.run(function(err, stats) {
     assert.isNotOk(err);
     assert.isFalse(stats.hasErrors());
-    done(stats);
+    callback(stats);
   });
 };
 

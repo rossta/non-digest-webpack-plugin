@@ -8,13 +8,13 @@ Given a webpack configuration that emits files with filenames with digests,
 module.exports = {
   // ...
   output: {
-    filename: '[name]-[chunkhash].js
+    filename: '[name]-[chunkhash].js',
   },
 
   // ...
   plugins: [
-    new NonDigestPlugin()
-
+    new NonDigestPlugin(),
+  ],
 }
 ```
 
@@ -42,8 +42,8 @@ const NonDigestPlugin = require('non-digest-webpack-plugin');
 module.exports = {
   // ...
   plugins: [
-    new NonDigestPlugin()
-  ]
+    new NonDigestPlugin(),
+  ],
 }
 ```
 
